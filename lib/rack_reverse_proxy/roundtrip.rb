@@ -197,6 +197,7 @@ module RackReverseProxy
 
     def setup_response_headers
       replace_location_header
+      response_headers.delete('Www-authenticate')
     end
 
     def rack_response
