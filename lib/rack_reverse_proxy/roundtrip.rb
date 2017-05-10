@@ -103,6 +103,11 @@ module RackReverseProxy
       target_request_headers["X-Forwarded-Proto"] = source_request.scheme
     end
 
+    def set_user_agent
+      return unless options[:user_agent]
+      target_request_headers["User-Agent"] = options[:user_agent]
+    end
+
     def initialize_http_header
       target_request.initialize_http_header(target_request_headers)
     end
@@ -188,6 +193,7 @@ module RackReverseProxy
       preserve_host
       strip_headers
       set_forwarded_headers
+      set_user_agent
       initialize_http_header
       set_basic_auth
       setup_body
